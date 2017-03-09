@@ -14,15 +14,15 @@ wire w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12;
 
 clock clock_inst(clk);
 
-reciever_reader pitch_reader(w1, pitch_pwm);
-reciever_reader roll_reader(w2, roll_pwm);
-reciever_reader yaw_reader(w3, yaw_pwm);
-reciever_reader throttle_reader(w4, throttle_pwm);
+reciever_reader pitch_reader(w1, pitch_pwm, clk);
+reciever_reader roll_reader(w2, roll_pwm, clk);
+reciever_reader yaw_reader(w3, yaw_pwm, clk);
+reciever_reader throttle_reader(w4, throttle_pwm, clk);
 
-pitch_offset_generator pitch_offset_generator_inst(w5, w6, w7, w8, w1);
-roll_offset_generator roll_offset_generator_inst(w5, w6, w7, w8, w2);
-yaw_offset_generator yaw_offset_generator_inst(w5, w6, w7, w8, w3);
-throttle_offset_generator throttle_offset_generator_inst(w5, w6, w7, w8, w4);
+pitch_offset_generator pitch_offset_generator_inst(w5, w6, w7, w8, w1, clk);
+roll_offset_generator roll_offset_generator_inst(w5, w6, w7, w8, w2, clk);
+yaw_offset_generator yaw_offset_generator_inst(w5, w6, w7, w8, w3, clk);
+throttle_offset_generator throttle_offset_generator_inst(w5, w6, w7, w8, w4, clk);
 
 //how do the summers connect now?
 
