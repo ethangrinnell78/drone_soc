@@ -1,3 +1,12 @@
+//---------------------------------------------------------------------------
+// ECE 412-413 Capstone Winter/Spring 2017
+// Team 05 Drone SOC
+// Lucas Myers, Svyatoslav Zhuchenya, Casey Montgomery, Charley Hill
+//
+// with a period of 50 hz and a max 10% duty cycle the max period high will be 2ms
+// part that will be fluctuating will fluctuate only over 5 % or by a max variation of 1ms
+// I recommend to get a resolution of 100 ticks to pole with clock frequency of 100 kHz
+//----------------------------------------------------------------------------
 module reciever_reader(
 			sys_clk,
 			pwm_in,
