@@ -1,7 +1,7 @@
 module reciever_reader(
-					              sys_clk,
-					              pwm_in,
-					              pwm_out
+			sys_clk,
+			pwm_in,
+			pwm_out
                        );
    
    //Parameters
@@ -55,5 +55,5 @@ module reciever_reader(
 	  begin
 	     counter_div <= counter_div - 1;
 	  end
-  end
+  	end
 endmodule
