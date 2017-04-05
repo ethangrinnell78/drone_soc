@@ -1,16 +1,18 @@
 module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, pitch_pwm, roll_pwm, yaw_pwm, throttle_pwm);
 
-output wire motor1_pwm;
-output wire motor2_pwm;
-output wire motor3_pwm;
-output wire motor4_pwm;
+output motor1_pwm;
+output motor2_pwm;
+output motor3_pwm;
+output motor4_pwm;
 input wire pitch_pwm;
 input wire roll_pwm;
 input wire yaw_pwm;
 input wire throttle_pwm;
 
 wire clk;
-wire w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22, w23, w24;
+wire w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20;
+wire [7:0] w21, w22, w23, w24;
+wire m1, m2, m3, m4;
 
 clock clock_inst(clk);
 
