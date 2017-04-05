@@ -6,10 +6,10 @@ module pwm_generator(PWM_out, x_in, clk_in);
             reg [7:0] counter = 0;
 
             always@ (posedge clk_in )begin
-                 /* if ( counter < x_in )
+                  if ( counter < x_in )
                         PWM_out <= 1;
                   else
-                        PWM_out <= 0;*/
+                        PWM_out <= 0;
                   counter <= counter+1;
                   end
 endmodule

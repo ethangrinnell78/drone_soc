@@ -10,16 +10,15 @@ input wire yaw_pwm;
 input wire throttle_pwm;
 
 wire clk;
-wire w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20;
-wire [7:0] w21, w22, w23, w24;
+wire [7:0] w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22, w23, w24;
 wire m1, m2, m3, m4;
 
 clock clock_inst(clk);
 
-reciever_reader pitch_reader(w1, pitch_pwm, clk);
-reciever_reader roll_reader(w2, roll_pwm, clk);
-reciever_reader yaw_reader(w3, yaw_pwm, clk);
-reciever_reader throttle_reader(w4, throttle_pwm, clk);
+reciever_reader pitch_reader(clk, pitch_pwm, w1);
+reciever_reader roll_reader(clk, roll_pwm, w2);
+reciever_reader yaw_reader(clk, yaw_pwm, w3);
+reciever_reader throttle_reader(clk, throttle_pwm, w4);
 
 /*output the offset for the respective control to motor 1 on the first wire, motor 2 on the second wire
 , motor 3 on the third wire, and motor 4 on the fourth wire.*/
