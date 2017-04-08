@@ -42,7 +42,7 @@ module reciever_reader(
 	  begin
 	     if(counter_int[COUNTER_SIZE-1])
 	       begin
-		  out_holder[COUNTER_SIZE-2 : 0] <= ~counter_int[COUNTER_SIZE-2 :0];	  
+		  out_holder[COUNTER_SIZE-2 : 0] <= counter_int[COUNTER_SIZE-2 :0];	  
 	       end
 	     else
 	       begin
