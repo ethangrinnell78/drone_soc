@@ -1,17 +1,24 @@
-module pwm_generator(PWM_out, x_in, clk_in);   			
-            output reg PWM_out = 1; //PWM signal out
-            input [7:0] x_in;     //control value that defines pulse width
-            input clk_in;     //clock for counter
-
-            reg [7:0] counter = 0;
+module pwm_generator(PWM_out, x_in, clk_in);   	
+            output reg PWM_out = 0;          //PWM signal out
+            input [7:0] x_in;                //control value that defines pulse width
+            input clk_in;                    //clock for counter
+			
+			parameter DIVIDER_SIZE  = 820;   // divider to get the frequency of PWM down to 500Hz
+            reg [6:0] counter = 0;
+			reg [15:0] divider = 0;
 
             always@ (posedge clk_in )begin
-                  if ( counter < x_in )
-                        PWM_out <= 1;
-                  else
-                        PWM_out <= 0;
-                  counter <= counter+1;
-                  end
+				if ( divider == DIVIDER_SIZE )begin
+                    if ( counter < x_in + 13)
+                            PWM_out <= 1;
+                    else
+                            PWM_out <= 0;
+				    counter <= counter+1;
+					divider <= 0;
+                    end
+				else 
+				    divider <= divider+1;
+				end
 endmodule
 
  /*

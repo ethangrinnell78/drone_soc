@@ -8,9 +8,9 @@
 // I recommend to get a resolution of 100 ticks to pole with clock frequency of 100 kHz
 //----------------------------------------------------------------------------
 module reciever_reader(
-		       sys_clk,
-		       pwm_in,
-		       pwm_out
+			sys_clk,
+			pwm_in,
+			pwm_out
                        );
    
    //Parameters
@@ -19,7 +19,7 @@ module reciever_reader(
    // determined by the input clock frequency (Want divided period to happen about 256 times per millisecond)
    parameter DIVIDER_SIZE  = 208;
    parameter LONG_SEQUENCE = 9'b000000000;// must must must change to zeros later
-   parameter SHORT_SEQUENCE = 8'b00000000;
+   parameter SHORT_SEQUENCE = 8'b11111111;
    //   inputs
    input wire sys_clk, pwm_in;
    
@@ -27,15 +27,15 @@ module reciever_reader(
    output wire [COUNTER_SIZE-2 : 0] pwm_out; 
    
    // internal registers
-   reg [COUNTER_SIZE-1 : 0] 	    counter_int; // internal
-   reg [COUNTER_SIZE-2 : 0] 	    counter_div; // for dividing clock
-   reg [COUNTER_SIZE-2 : 0] 	    out_holder;
-   reg 				    pwm_h;
+   reg [COUNTER_SIZE-1 : 0] 	   counter_int; // internal
+   reg [COUNTER_SIZE-2 : 0] 	   counter_div; // for dividing clock
+   reg [COUNTER_SIZE-2 : 0] 	   out_holder;
+   reg 				   pwm_h;
    
    // output has a continuously assigned value
    assign pwm_out = out_holder;
-   
-   // all sequential logic for reader in one always block
+      
+	// all sequential logic for reader in one always block
    always @ (posedge sys_clk)
      begin
 	if(~pwm_in && (counter_int != LONG_SEQUENCE))
@@ -64,5 +64,5 @@ module reciever_reader(
 	  begin
 	     counter_div <= counter_div - 1;
 	  end
-     end
+  	end
 endmodule
