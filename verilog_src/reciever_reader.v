@@ -44,7 +44,7 @@ module reciever_reader(
 	  begin
 	     if(counter_int > MAX_COUNT)
 	       begin
-		  out_holder[COUNTER_SIZE-1 : 0] <= ~(counter_int[COUNTER_SIZE-1 :0] - 40);	  
+		  out_holder[COUNTER_SIZE-1 : 0] <= (counter_int[COUNTER_SIZE-1 :0] - 40);	  
 		  counter_int <= SHORT_SEQUENCE;	
 	       end
 	     else
