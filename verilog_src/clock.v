@@ -18,13 +18,13 @@
 
 // Clock for all modules.
 module clock (clk);
-	output wire clk;
-		// Instantiate the internal oscillator.
-	defparam OSCH_inst.NOM_FREQ = "53.20";
-	OSCH OSCH_inst
-		( 
-		.STDBY(1'b0), 		// 0=Enabled, 1=Disabled also Disabled with Bandgap=OFF.
-		.OSC(clk),		// Connect the clock to the osc_clk wire.
-		.SEDSTDBY()     		// this signal is not required if not using SED.
-		);
+   output wire clk;
+   // Instantiate the internal oscillator.
+   defparam OSCH_inst.NOM_FREQ = "53.20";
+   OSCH OSCH_inst
+     ( 
+       .STDBY(1'b0), 		// 0=Enabled, 1=Disabled also Disabled with Bandgap=OFF.
+       .OSC(clk),		// Connect the clock to the osc_clk wire.
+       .SEDSTDBY()     		// this signal is not required if not using SED.
+       );
 endmodule

@@ -8,48 +8,51 @@
 // I recommend to get a resolution of 100 ticks to pole with clock frequency of 100 kHz
 //----------------------------------------------------------------------------
 module reciever_reader(
-			sys_clk,
-			pwm_in,
-			pwm_out
+		       sys_clk,
+		       pwm_in,
+		       pwm_out
                        );
    
    //Parameters
-   // Nine because the internal counter needs to hold a number twice as big as the output 
-   parameter COUNTER_SIZE = 9;
-   // determined by the input clock frequency (Want divided period to happen about 256 times per millisecond)
-   parameter DIVIDER_SIZE  = 208;
-   parameter LONG_SEQUENCE = 9'b000000000;// must must must change to zeros later
-   parameter SHORT_SEQUENCE = 8'b11111111;
+   // 
+   parameter COUNTER_SIZE = 8;
+   // determined by the input clock frequency (Want divided period to happen about 40 times per millisecond)
+   parameter DIVIDER_SIZE  = 1330;
+   // Number of samples per millisecond
+   parameter MAX_COUNT  = 40;
+   parameter LONG_SEQUENCE = 8'b00000000;// must must must change to zeros later
+   parameter SHORT_SEQUENCE = 8'b00000000;
    //   inputs
    input wire sys_clk, pwm_in;
    
    //  output
-   output wire [COUNTER_SIZE-2 : 0] pwm_out; 
+   output wire [COUNTER_SIZE-1 : 0] pwm_out; 
    
    // internal registers
-   reg [COUNTER_SIZE-1 : 0] 	   counter_int; // internal
-   reg [COUNTER_SIZE-2 : 0] 	   counter_div; // for dividing clock
-   reg [COUNTER_SIZE-2 : 0] 	   out_holder;
-   reg 				   pwm_h;
+   reg [COUNTER_SIZE-1 : 0] 	    counter_int; // internal
+   reg [10 : 0] 		    counter_div; // for dividing clock
+   reg [COUNTER_SIZE-1 : 0] 	    out_holder;
+   reg 				    pwm_h;
    
    // output has a continuously assigned value
    assign pwm_out = out_holder;
-      
-	// all sequential logic for reader in one always block
+   
+   // all sequential logic for reader in one always block
    always @ (posedge sys_clk)
      begin
-	if(~pwm_in && (counter_int != LONG_SEQUENCE))
+	if(~pwm_in)
 	  begin
-	     if(counter_int[COUNTER_SIZE-1])
+	     if(counter_int > MAX_COUNT)
 	       begin
-		  out_holder[COUNTER_SIZE-2 : 0] <= counter_int[COUNTER_SIZE-2 :0];	  
+		  out_holder[COUNTER_SIZE-1 : 0] <= ~(counter_int[COUNTER_SIZE-1 :0] - 40);	  
+		  counter_int <= SHORT_SEQUENCE;	
 	       end
 	     else
 	       begin
-		  out_holder <= SHORT_SEQUENCE;
+		  counter_int <= SHORT_SEQUENCE;	
 	       end
-	     counter_int <= LONG_SEQUENCE;	     
 	  end
+	
 	else
 	  begin
 	     out_holder <= out_holder;
@@ -64,5 +67,5 @@ module reciever_reader(
 	  begin
 	     counter_div <= counter_div - 1;
 	  end
-  	end
+     end
 endmodule
