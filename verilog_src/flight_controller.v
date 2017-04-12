@@ -22,9 +22,9 @@ module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, pitch_p
 
    /*output the offset for the respective control to motor 1 on the first wire, motor 2 on the second wire
     , motor 3 on the third wire, and motor 4 on the fourth wire.*/
-   pitch_offset_generator pitch_offset_generator_inst(w5, w6, w7, w8, w1, clk);
-   roll_offset_generator roll_offset_generator_inst(w9, w10, w11, w12, w2, clk);
-   yaw_offset_generator yaw_offset_generator_inst(w13, w14, w15, w16, w3, clk);
+   pitch_offset_generator pitch_offset_generator_inst(w5, w6, w7, w8, w1, w4/*throttle offset*/, clk);
+   roll_offset_generator roll_offset_generator_inst(w9, w10, w11, w12, w2, w4/*throttle offset*/, clk);
+   yaw_offset_generator yaw_offset_generator_inst(w13, w14, w15, w16, w3, w4/*throttle offset*/, clk);
    throttle_offset_generator throttle_offset_generator_inst(w17, w18, w19, w20, w4, clk);
 
    motor_offset_summer motor_1_offset_summer(w21/*output offset of motor 1 to w21*/, w5, w9, w13, w17, clk);
