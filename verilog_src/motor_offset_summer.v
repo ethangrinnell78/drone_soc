@@ -11,7 +11,7 @@ module motor_offset_summer (motor_total_offset, pitch_offset, roll_offset, yaw_o
 	input  [7:0] roll_offset; 			// 8-bit value input
 	input  [7:0] yaw_offset;			// 8-bit value input
 	input clk;
-	parameter MAIN_OFFSET = 8'b0000000
+	parameter MAIN_OFFSET = 8'b0000000;
 	
 	always@ (posedge clk )begin
 		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+MAIN_OFFSET;
