@@ -48,17 +48,34 @@ module pitch_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mo
    input [7:0] 	    throttle_offset;
    input            clk;
    
+  parameter DEFAULT_VALUE = 20;
+   parameter HALF_POINT = 20;
+   parameter FULL_POINT = 40;
+   
+   
    always@ (posedge clk )
      begin
+	if(pitch_offset > HALF_POINT)
+	  begin
+	     motor_1_offset <= FULL_POINT - pitch_offset;
+	     motor_2_offset <= DEFAULT_VALUE;
+	     motor_3_offset <= FULL_POINT - pitch_offset;
+	     motor_4_offset <= DEFAULT_VALUE;
+	  end
+	else
+	  begin
+	     motor_1_offset <= DEFAULT_VALUE;
+	     motor_2_offset <= pitch_offset;
+	     motor_3_offset <= DEFAULT_VALUE;
+	     motor_4_offset <= pitch_offset;
+	  end // else: !if(pitch_offset > HALF_POINT)
+	
+
 	/* need a way to map the 0-255 values for the pitch offset input to the +/- 0-20 value
 	 for the % duty cycle change in each motor. this needs to be done without using multiplication
 	 or division. in addition, the amount of throttle alters the output % duty cycle value of
 	 the other three signals, so we need to find a way to switch based on throttle values as well*/
-	motor_1_offset <= pitch_offset;
-	motor_2_offset <= pitch_offset;
-	motor_3_offset <= pitch_offset;
-	motor_4_offset <= pitch_offset;
-     end
+	 end
    
 endmodule
 
@@ -71,16 +88,29 @@ module roll_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mot
    input [7:0] 	    throttle_offset;
    input            clk;
    
-   always@ (posedge clk )begin
-      /* need a way to map the 0-40 values for the roll offset input to the +/- 0-20 value
-       for the % duty cycle change in each motor. this needs to be done without using multiplication
-       or division. in addition, the amount of throttle alters the output % duty cycle value of
-       the other three signals, so we need to find a way to switch based on throttle values as well*/
-      motor_1_offset <= roll_offset;
-      motor_2_offset <= roll_offset;
-      motor_3_offset <= roll_offset;
-      motor_4_offset <= roll_offset;
-   end
+   parameter DEFAULT_VALUE = 20;
+   parameter HALF_POINT = 20;
+   parameter FULL_POINT = 40;
+
+   
+   always@ (posedge clk )
+     begin
+	if(roll_offset > HALF_POINT)
+	  begin
+	     motor_1_offset <= DEFAULT_VALUE;
+	     motor_2_offset <= FULL_POINT - roll_offset;
+	     motor_3_offset <= FULL_POINT - roll_offset;
+	     motor_4_offset <= DEFAULT_VALUE;
+	  end
+	else
+	  begin
+	     motor_1_offset <= roll_offset;
+	     motor_2_offset <= DEFAULT_VALUE;
+	     motor_3_offset <= DEFAULT_VALUE;
+	     motor_4_offset <= roll_offset;
+	  end // else: !if(roll_offset > HALF_POINT)
+	
+     end
    
 endmodule
 
@@ -93,16 +123,27 @@ module yaw_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, moto
    input [7:0] 	    throttle_offset;
    input            clk;
    
+  parameter DEFAULT_VALUE = 20;
+   parameter HALF_POINT = 20;
+   parameter FULL_POINT = 40;
+
    always@ (posedge clk )
      begin
-	/* need a way to map the 0-255 values for the yaw offset input to the +/- 0-20 value
-	 for the % duty cycle change in each motor. this needs to be done without using multiplication
-	 or division. in addition, the amount of throttle alters the output % duty cycle value of
-	 the other three signals, so we need to find a way to switch based on throttle values as well*/
-	motor_1_offset <= yaw_offset;
-	motor_2_offset <= yaw_offset;
-	motor_3_offset <= yaw_offset;
-	motor_4_offset <= yaw_offset;
+	if(yaw_offset > HALF_POINT)
+	  begin
+	     motor_1_offset <= DEFAULT_VALUE;
+	     motor_2_offset <= DEFAULT_VALUE;
+	     motor_3_offset <= FULL_POINT - yaw_offset;
+	     motor_4_offset <= FULL_POINT - yaw_offset;
+	  end
+	else
+	  begin
+	     motor_1_offset <= yaw_offset;
+	     motor_2_offset <= yaw_offset;
+	     motor_3_offset <= DEFAULT_VALUE;
+	     motor_4_offset <= DEFAULT_VALUE;
+	  end // else: !if(yaw_offset > HALF_POINT)
+	
      end
    
 endmodule
