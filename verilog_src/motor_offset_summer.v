@@ -13,8 +13,8 @@ module motor_offset_summer (motor_total_offset, pitch_offset, roll_offset, yaw_o
 	input clk;
 	
 	always@ (posedge clk )begin
-		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+8'b110010;
-	// "8'h32" is the base duty cycle value (50%) that is required for the ESCs to keep motors idle 
+		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+8'b101011;
+	// "8'b101011" is the base duty cycle value (45%) that is required for the ESCs to keep motors idle 
 	end
 	
 endmodule 

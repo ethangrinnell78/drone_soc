@@ -1,9 +1,17 @@
-module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, pitch_pwm, roll_pwm, yaw_pwm, throttle_pwm);
+module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, led1, led2, led3, led4, led5, led6, led7, led8, pitch_pwm, roll_pwm, yaw_pwm, throttle_pwm);
    
    output motor1_pwm;
    output motor2_pwm;
    output motor3_pwm;
    output motor4_pwm;
+   output led1;
+   output led2;
+   output led3;
+   output led4;
+   output led5;
+   output led6;
+   output led7;
+   output led8;
    input wire pitch_pwm;
    input wire roll_pwm;
    input wire yaw_pwm;
@@ -25,7 +33,7 @@ module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, pitch_p
    pitch_offset_generator pitch_offset_generator_inst(w5, w6, w7, w8, w1, w4/*throttle offset*/, clk);
    roll_offset_generator roll_offset_generator_inst(w9, w10, w11, w12, w2, w4/*throttle offset*/, clk);
    yaw_offset_generator yaw_offset_generator_inst(w13, w14, w15, w16, w3, w4/*throttle offset*/, clk);
-   throttle_offset_generator throttle_offset_generator_inst(w17, w18, w19, w20, w4, clk);
+   throttle_offset_generator throttle_offset_generator_inst(w17, w18, w19, w20, led1, led2, led3, led4, led5, led6, led7, led8, w4, clk);
 
    motor_offset_summer motor_1_offset_summer(w21/*output offset of motor 1 to w21*/, w5, w9, w13, w17, clk);
    motor_offset_summer motor_2_offset_summer(w22/*output offset of motor 2 to w22*/, w6, w10, w14, w18, clk);
