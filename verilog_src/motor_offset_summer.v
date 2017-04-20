@@ -11,9 +11,10 @@ module motor_offset_summer (motor_total_offset, pitch_offset, roll_offset, yaw_o
 	input  [7:0] roll_offset; 			// 8-bit value input
 	input  [7:0] yaw_offset;			// 8-bit value input
 	input clk;
+	parameter MAIN_OFFSET = 8'b0000000
 	
 	always@ (posedge clk )begin
-		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+8'b110010;
+		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+MAIN_OFFSET;
 	// "8'h32" is the base duty cycle value (50%) that is required for the ESCs to keep motors idle 
 	end
 	
