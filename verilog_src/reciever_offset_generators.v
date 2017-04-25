@@ -11,7 +11,7 @@ module throttle_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset,
 		 begin
 		  motor_1_offset <= throttle_offset+8'b000;
 		  motor_2_offset <= throttle_offset+8'b000;
-		  motor_3_offset <= throttle_offset+8'b010;
+		  motor_3_offset <= throttle_offset+8'b001;
 		  motor_4_offset <= throttle_offset+8'b000;
 		 end
    end
