@@ -38,7 +38,6 @@ module throttle_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset,
    end
    
 endmodule
-
 module pitch_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, motor_4_offset, pitch_offset, throttle_offset, clk);
    output reg [7:0] motor_1_offset;
    output reg [7:0] motor_2_offset;
@@ -48,26 +47,30 @@ module pitch_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mo
    input [7:0] 	    throttle_offset;
    input            clk;
    
-  parameter DEFAULT_VALUE = 20;
+   wire [7:0] internal;
+   
+   parameter DEFAULT_VALUE = 20;
    parameter HALF_POINT = 20;
    parameter FULL_POINT = 40;
+   //parameter INTERNAL = 60;
    
+   assign internal = FULL_POINT - pitch_offset;
    
    always@ (posedge clk )
      begin
 	if(pitch_offset > HALF_POINT)
 	  begin
-	     motor_1_offset <= FULL_POINT - pitch_offset;
+	     motor_1_offset <= 10 + {1'b0, internal[7:1]};
 	     motor_2_offset <= DEFAULT_VALUE;
-	     motor_3_offset <= FULL_POINT - pitch_offset;
+	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
 	     motor_4_offset <= DEFAULT_VALUE;
 	  end
 	else
 	  begin
 	     motor_1_offset <= DEFAULT_VALUE;
-	     motor_2_offset <= pitch_offset;
+	     motor_2_offset <= 10 + {1'b0, pitch_offset[7:1]};
 	     motor_3_offset <= DEFAULT_VALUE;
-	     motor_4_offset <= pitch_offset;
+	     motor_4_offset <= 10 + {1'b0, pitch_offset[7:1]};
 	  end // else: !if(pitch_offset > HALF_POINT)
 	
 
@@ -88,26 +91,29 @@ module roll_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mot
    input [7:0] 	    throttle_offset;
    input            clk;
    
+   wire [7:0] internal;
+   
    parameter DEFAULT_VALUE = 20;
    parameter HALF_POINT = 20;
    parameter FULL_POINT = 40;
 
+   assign internal = FULL_POINT - roll_offset;
    
    always@ (posedge clk )
      begin
 	if(roll_offset > HALF_POINT)
 	  begin
 	     motor_1_offset <= DEFAULT_VALUE;
-	     motor_2_offset <= FULL_POINT - roll_offset;
-	     motor_3_offset <= FULL_POINT - roll_offset;
+	     motor_2_offset <= 10 + {1'b0, internal[7:1]};
+	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
 	     motor_4_offset <= DEFAULT_VALUE;
 	  end
 	else
 	  begin
-	     motor_1_offset <= roll_offset;
+	     motor_1_offset <= 10 + {1'b0, roll_offset[7:1]};
 	     motor_2_offset <= DEFAULT_VALUE;
 	     motor_3_offset <= DEFAULT_VALUE;
-	     motor_4_offset <= roll_offset;
+	     motor_4_offset <= 10 + {1'b0, roll_offset[7:1]};
 	  end // else: !if(roll_offset > HALF_POINT)
 	
      end
@@ -123,23 +129,27 @@ module yaw_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, moto
    input [7:0] 	    throttle_offset;
    input            clk;
    
-  parameter DEFAULT_VALUE = 20;
+   wire [7:0] internal;
+  
+   parameter DEFAULT_VALUE = 20;
    parameter HALF_POINT = 20;
    parameter FULL_POINT = 40;
 
+	assign internal = FULL_POINT - yaw_offset;
+   
    always@ (posedge clk )
      begin
 	if(yaw_offset > HALF_POINT)
 	  begin
 	     motor_1_offset <= DEFAULT_VALUE;
 	     motor_2_offset <= DEFAULT_VALUE;
-	     motor_3_offset <= FULL_POINT - yaw_offset;
-	     motor_4_offset <= FULL_POINT - yaw_offset;
+	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
+	     motor_4_offset <= 10 + {1'b0, internal[7:1]};
 	  end
 	else
 	  begin
-	     motor_1_offset <= yaw_offset;
-	     motor_2_offset <= yaw_offset;
+	     motor_1_offset <= 10 + {1'b0, yaw_offset[7:1]};
+	     motor_2_offset <= 10 + {1'b0, yaw_offset[7:1]};
 	     motor_3_offset <= DEFAULT_VALUE;
 	     motor_4_offset <= DEFAULT_VALUE;
 	  end // else: !if(yaw_offset > HALF_POINT)
