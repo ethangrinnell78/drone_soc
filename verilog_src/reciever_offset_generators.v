@@ -7,34 +7,12 @@ module throttle_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset,
    input            clk;
    
    always@ (posedge clk )begin
-	  if (throttle_offset <= 10)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b010;
-		  motor_2_offset <= throttle_offset+8'b010;
-		  motor_3_offset <= throttle_offset+8'b010;
-		  motor_4_offset <= throttle_offset+8'b010;
-		  end
-	  else if (throttle_offset > 10 && throttle_offset <= 20)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b1000;
-		  motor_2_offset <= throttle_offset+8'b1000;
-		  motor_3_offset <= throttle_offset+8'b1000;
-		  motor_4_offset <= throttle_offset+8'b1000;
-		  end
-	  else if (throttle_offset > 20 && throttle_offset <= 30)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b1110;
-		  motor_2_offset <= throttle_offset+8'b1110;
-		  motor_3_offset <= throttle_offset+8'b1110;
-		  motor_4_offset <= throttle_offset+8'b1110;
-		  end
-	  else if (throttle_offset > 30)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b10100;
-		  motor_2_offset <= throttle_offset+8'b10100;
-		  motor_3_offset <= throttle_offset+8'b10100;
-		  motor_4_offset <= throttle_offset+8'b10100;
-		  end
+	  
+		  motor_1_offset <= throttle_offset+8'b000;
+		  motor_2_offset <= throttle_offset+8'b000;
+		  motor_3_offset <= throttle_offset+8'b000;
+		  motor_4_offset <= throttle_offset+8'b001;
+		 
    end
    
 endmodule
