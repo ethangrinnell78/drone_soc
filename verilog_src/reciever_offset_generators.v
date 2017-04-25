@@ -7,34 +7,13 @@ module throttle_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset,
    input            clk;
    
    always@ (posedge clk )begin
-	  if (throttle_offset <= 10)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b010;
-		  motor_2_offset <= throttle_offset+8'b010;
+	  
+		 begin
+		  motor_1_offset <= throttle_offset+8'b000;
+		  motor_2_offset <= throttle_offset+8'b000;
 		  motor_3_offset <= throttle_offset+8'b010;
-		  motor_4_offset <= throttle_offset+8'b010;
-		  end
-	  else if (throttle_offset > 10 && throttle_offset <= 20)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b1000;
-		  motor_2_offset <= throttle_offset+8'b1000;
-		  motor_3_offset <= throttle_offset+8'b1000;
-		  motor_4_offset <= throttle_offset+8'b1000;
-		  end
-	  else if (throttle_offset > 20 && throttle_offset <= 30)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b1110;
-		  motor_2_offset <= throttle_offset+8'b1110;
-		  motor_3_offset <= throttle_offset+8'b1110;
-		  motor_4_offset <= throttle_offset+8'b1110;
-		  end
-	  else if (throttle_offset > 30)
-		  begin
-		  motor_1_offset <= throttle_offset+8'b10100;
-		  motor_2_offset <= throttle_offset+8'b10100;
-		  motor_3_offset <= throttle_offset+8'b10100;
-		  motor_4_offset <= throttle_offset+8'b10100;
-		  end
+		  motor_4_offset <= throttle_offset+8'b000;
+		 end
    end
    
 endmodule
@@ -61,15 +40,15 @@ module pitch_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mo
 	if(pitch_offset > HALF_POINT)
 	  begin
 	     motor_1_offset <= 10 + {1'b0, internal[7:1]};
-	     motor_2_offset <= DEFAULT_VALUE;
+	     motor_2_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
 	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
-	     motor_4_offset <= DEFAULT_VALUE;
+	     motor_4_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
 	  end
 	else
 	  begin
-	     motor_1_offset <= DEFAULT_VALUE;
+	     motor_1_offset <= DEFAULT_VALUE + 10 - {1'b0, pitch_offset[7:1]};
 	     motor_2_offset <= 10 + {1'b0, pitch_offset[7:1]};
-	     motor_3_offset <= DEFAULT_VALUE;
+	     motor_3_offset <= DEFAULT_VALUE + 10 - {1'b0, pitch_offset[7:1]};
 	     motor_4_offset <= 10 + {1'b0, pitch_offset[7:1]};
 	  end // else: !if(pitch_offset > HALF_POINT)
 	
@@ -103,16 +82,16 @@ module roll_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mot
      begin
 	if(roll_offset > HALF_POINT)
 	  begin
-	     motor_1_offset <= DEFAULT_VALUE;
+	     motor_1_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
 	     motor_2_offset <= 10 + {1'b0, internal[7:1]};
 	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
-	     motor_4_offset <= DEFAULT_VALUE;
+	     motor_4_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
 	  end
 	else
 	  begin
 	     motor_1_offset <= 10 + {1'b0, roll_offset[7:1]};
-	     motor_2_offset <= DEFAULT_VALUE;
-	     motor_3_offset <= DEFAULT_VALUE;
+	     motor_2_offset <= DEFAULT_VALUE + 10 - {1'b0, roll_offset[7:1]};
+	     motor_3_offset <= DEFAULT_VALUE + 10 - {1'b0, roll_offset[7:1]};
 	     motor_4_offset <= 10 + {1'b0, roll_offset[7:1]};
 	  end // else: !if(roll_offset > HALF_POINT)
 	
@@ -141,8 +120,8 @@ module yaw_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, moto
      begin
 	if(yaw_offset > HALF_POINT)
 	  begin
-	     motor_1_offset <= DEFAULT_VALUE;
-	     motor_2_offset <= DEFAULT_VALUE;
+	     motor_1_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
+	     motor_2_offset <= DEFAULT_VALUE + 10 - {1'b0, internal[7:1]};
 	     motor_3_offset <= 10 + {1'b0, internal[7:1]};
 	     motor_4_offset <= 10 + {1'b0, internal[7:1]};
 	  end
@@ -150,8 +129,8 @@ module yaw_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, moto
 	  begin
 	     motor_1_offset <= 10 + {1'b0, yaw_offset[7:1]};
 	     motor_2_offset <= 10 + {1'b0, yaw_offset[7:1]};
-	     motor_3_offset <= DEFAULT_VALUE;
-	     motor_4_offset <= DEFAULT_VALUE;
+	     motor_3_offset <= DEFAULT_VALUE + 10 - {1'b0, yaw_offset[7:1]};
+	     motor_4_offset <= DEFAULT_VALUE + 10 - {1'b0, yaw_offset[7:1]};
 	  end // else: !if(yaw_offset > HALF_POINT)
 	
      end
