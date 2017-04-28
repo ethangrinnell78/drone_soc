@@ -5,19 +5,16 @@ generates an 8-bit duty cycle value 0%(8'h00) to 100%(8'h64) for pwm_generator.v
 
 module motor_offset_summer (motor_total_offset, pitch_offset, roll_offset, yaw_offset, throttle_offset, clk);
 	
-	output reg [7:0] motor_total_offset;	// 8-bit value output 
-	input  [7:0] throttle_offset; 		// 8-bit value input
-	input  [7:0] pitch_offset; 			// 8-bit value input
-	input  [7:0] roll_offset; 			// 8-bit value input
-	input  [7:0] yaw_offset;			// 8-bit value input
-	input clk;
+	output reg [10:0] motor_total_offset;	// 10-bit value output 
+	input      [10:0] throttle_offset; 		// 10-bit value input
+	input      [10:0] pitch_offset; 		// 10-bit value input
+	input      [10:0] roll_offset; 			// 10-bit value input
+	input      [10:0] yaw_offset;			// 10-bit value input
+	input            clk;
 	
 	always@ (posedge clk )begin
-		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+8'b101011;
-	// "8'b101011" is the base duty cycle value (45%) that is required for the ESCs to keep motors idle 
+		motor_total_offset <= throttle_offset+pitch_offset+roll_offset+yaw_offset+450;
+	// 450 is the base duty cycle value (45%) that is required for the ESCs to keep motors idle 
 	end
 	
 endmodule 
-
-
-
