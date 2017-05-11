@@ -15,13 +15,13 @@ module reciever_reader(
    
    //Parameters
    // 
-   parameter COUNTER_SIZE = 8;
-   // determined by the input clock frequency (Want divided period to happen about 40 times per millisecond)
-   parameter DIVIDER_SIZE  = 1330;
+   parameter COUNTER_SIZE = 10;
+   // determined by the input clock frequency (Want divided period to happen about 400 times per millisecond)
+   parameter DIVIDER_SIZE  = 133;                // to change to 500, 4/5 * 133
    // Number of samples per millisecond
-   parameter MAX_COUNT  = 40;
-   parameter LONG_SEQUENCE = 8'b00000000;// must must must change to zeros later
-   parameter SHORT_SEQUENCE = 8'b00000000;
+   parameter MAX_COUNT  = 400;                   // to change to 500, add 100
+   parameter LONG_SEQUENCE = 10'b0000000000;     // must must must change to zeros later
+   parameter SHORT_SEQUENCE = 10'b0000000000;
    //   inputs
    input wire sys_clk, pwm_in;
    
@@ -30,7 +30,7 @@ module reciever_reader(
    
    // internal registers
    reg [COUNTER_SIZE-1 : 0] 	    counter_int; // internal
-   reg [10 : 0] 		    counter_div; // for dividing clock
+   reg [COUNTER_SIZE : 0] 		    counter_div; // for dividing clock
    reg [COUNTER_SIZE-1 : 0] 	    out_holder;
    reg 				    pwm_h;
    
@@ -44,7 +44,7 @@ module reciever_reader(
 	  begin
 	     if(counter_int > MAX_COUNT)
 	       begin
-		  out_holder[COUNTER_SIZE-1 : 0] <= (counter_int[COUNTER_SIZE-1 :0] - 40);	  
+		  out_holder[COUNTER_SIZE-1 : 0] <= (counter_int[COUNTER_SIZE-1 :0] - MAX_COUNT);	  
 		  counter_int <= SHORT_SEQUENCE;	
 	       end
 	     else
