@@ -15,14 +15,14 @@ module throttle_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset,
 	input [9:0]       switch_state;
  	input             clk;
  
- 	parameter OFFSET1 = 100;            // motor 1 offset 95
-	parameter OFFSET2 = 100;            // motor 2 offset 95
-	parameter OFFSET3 = 80;            // motor 3 offset 80
-	parameter OFFSET4 = 80;            // motor 4 offset 75
+ 	parameter OFFSET1 = 86;            // motor 1 offset
+	parameter OFFSET2 = 82;            // motor 2 offset
+	parameter OFFSET3 = 90;             // motor 3 offset
+	parameter OFFSET4 = 70;             // motor 4 offset
 	parameter STEP1 = 5;
-	parameter STEP2 = 5;
-	parameter STEP3 = 5;
-	parameter STEP4 = 5;
+	parameter STEP2 = 8;
+	parameter STEP3 = 8;
+	parameter STEP4 = 0;
 	
 	always@ (posedge clk) 
  	  begin
@@ -193,8 +193,8 @@ module pitch_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mo
    
     parameter PITCH_MAX = 100;         // maximum pitch value to decrement off motors by at max throttle
 	parameter MAX_STEP = 10;           // step to decrease maximum decrement by ( PITCH_MAX / MAX_STEP must be = 10! )
-	parameter PITCH_MIN = 10;           // minimum pitch value to increment on motors by at min throttle
-	parameter MIN_STEP = 10;            // step to increment up from minimum ( PITCH_MIN + (MIN_STEP*20) = MAX VALUE )
+	parameter PITCH_MIN = 5;           // minimum pitch value to increment on motors by at min throttle
+	parameter MIN_STEP = 4;            // step to increment up from minimum ( PITCH_MIN + (MIN_STEP*20) = MAX VALUE )
    
     always@ (posedge clk) 
 	  begin
@@ -500,10 +500,10 @@ module roll_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, mot
 	input [9:0] 	  throttle_offset;
 	input             clk;
    
-    parameter ROLL_MAX = 100;         // maximum pitch value to decrement off motors by at max throttle
-	parameter MAX_STEP = 10;           // step to decrease maximum decrement by ( PITCH_MAX / MAX_STEP must be = 10! )
-	parameter ROLL_MIN = 10;           // minimum pitch value to increment on motors by at min throttle
-	parameter MIN_STEP = 10;            // step to increment up from minimum ( PITCH_MIN + (MIN_STEP*20) = MAX VALUE )
+    parameter ROLL_MAX = 100;         // maximum roll value to decrement off motors by at max throttle
+	parameter MAX_STEP = 10;           // step to decrease maximum decrement by ( ROLL_MAX / MAX_STEP must be = 10! )
+	parameter ROLL_MIN = 5;           // minimum roll value to increment on motors by at min throttle
+	parameter MIN_STEP = 4;            // step to increment up from minimum ( ROLL_MIN + (MIN_STEP*20) = MAX VALUE )
    
     always@ (posedge clk) 
 	  begin
@@ -811,8 +811,8 @@ module yaw_offset_generator(motor_1_offset, motor_2_offset, motor_3_offset, moto
    
     parameter YAW_MAX = 100;         // maximum yaw value
     parameter MAX_STEP = 10;         // step to increment down from max value ( YAW_MAX / MAX_STEP must be >= 10! )
-	parameter YAW_MIN = 10;           // minimum yaw value
-	parameter MIN_STEP = 10;          // step to increment up from minimum
+	parameter YAW_MIN = 5;           // minimum yaw value
+	parameter MIN_STEP = 4;          // step to increment up from minimum
 	
     always@ (posedge clk) 
 	  begin

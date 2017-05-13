@@ -18,10 +18,10 @@ module flight_controller(motor1_pwm, motor2_pwm, motor3_pwm, motor4_pwm, led1, l
    input wire throttle_pwm;
    input wire switch_pwm;
    
-   wire       clk;
-   wire [9:0]  w1, w2, w3, w4, w25;
-   wire [10:0] w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22, w23, w24;
-   wire       m1, m2, m3, m4;
+   wire         clk;
+   wire [9:0]   w1, w2, w3, w4, w25;
+   wire [10:0]  w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22, w23, w24;
+   wire         m1, m2, m3, m4;
 
    clock clock_inst(clk);
    
